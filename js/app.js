@@ -62,6 +62,17 @@ $(document).ready(function() {
             img.fadeIn(100);
             tile.flipped = !tile.flipped;
         }); //after fadeOut
-        //on click of gameboard images
-    });
+    }); //on click of gameboard images
+
+    // timer to show elapsed time on page
+    var startTime = _.now();
+    var timer = window.setInterval(function() {
+        var elapsedSeconds = Math.floor((_.now() - startTime) / 1000);
+        $('#elapsed-seconds').text(elapsedSeconds);
+
+        if (elapsedSeconds >= 10) {
+            window.clearInterval(timer);
+        }
+    }, 1000);
+
 });
