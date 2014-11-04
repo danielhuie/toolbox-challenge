@@ -4,18 +4,65 @@
         <meta charset="UTF-8">
         <title>Memory</title>
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css"/>
     </head>
     <body>
-        <h1>Memory!</h1>
-        <p id="elapsed-seconds"></p>
-        <div id="game-board">
+        <div class="container">
+            <h1>Memory!</h1>
+            <button id="new-game" type="button" class="btn btn-primary btn-lg">Start New Game</button>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                How to play
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Rules of the Game!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <b>The rules are simple. Here they are as follows:</b>
+                            <Br>
+                            <li>You can only flip over one tile at a time</li>
+                            <li>That's about it</li>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">I understand the rules</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id = "stats" class="row">
+                <div class="col-md-3">
+                    <p id="elapsed-seconds"></p>
+                </div>
+                <div class="col-md-3">
+                    <p id ="matches-made"></p>
+                </div>
+                <div class="col-md-3">
+                    <p id="matches-remaining"></p>
+                </div>
+                <div class="col-md-3">
+                    <p id="matches-attempted">Attempted Matches: </p>
+                </div>
+            </div>
+            <Br>
+
+            <div id="game-board"></div>
 
 
+            <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+            <script src="js/app.js"></script>
         </div>
 
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-        <script src="js/app.js"></script>
     </body>
 </html>

@@ -2,4 +2,23 @@
     width: 150px;
     height: 150px;
     margin-right: 5px;
+    margin-bottom: 5px;
 }
+
+body {
+    background: black;
+}
+
+p, h1 {
+    color: white;
+    padding-bottom: 10px;
+}
+
+#stats {
+    padding-top: 10px;
+}
+
+#new-game {
+    background-color: lightgreen;
+}
+

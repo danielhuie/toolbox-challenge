@@ -23,14 +23,22 @@
 //must use window.setTimeout() somewhere
 
 
+// if you want to change hasFoundMatch in two tiles, you must reference the tiles array and change it directly there
 
 $(document).ready(function() {
     var matchesMade = 0;
-    var tilesMissed = 0;
     var matchesMissed = 0;
-    var matchesLeft = 0;
-    var selectedTile1 = 0;
-    var selectedTile2 = 0;
+    var matchesLeft = 8;
+    var prev;
+    var curr;
+    var numClicks = 0;
+    var turnBackOver = false;
+    var prevImg;
+
+    $('#elapsed-seconds').text("Seconds Elapsed: 0");
+    $('#matches-made').text("Matches Made: 0");
+    $('#matches-remaining').text("Matches Remaining: 8");
+    $('#matches-attempted').text("Matches Attempted: 0");
 
     var tiles = [];
     var i;
@@ -38,19 +46,13 @@ $(document).ready(function() {
         tiles.push({
             tileNum: i,
             src: 'img/tile' + i + '.jpg',
-            isFlippable: true
+            hasFoundMatch: false
         });
     }
 
-    //console.log(tiles);
-
     var shuffledTiles = _.shuffle(tiles);
-    //console.log(shuffledTiles);
-
 
     var selectedTiles = shuffledTiles.slice(0, 8);
-    //console.log(selectedTiles);
-
 
     var tilePairs = [];
     _.forEach(selectedTiles, function(tile) {
@@ -58,16 +60,12 @@ $(document).ready(function() {
         tilePairs.push(_.clone(tile));
     });
 
-
-    tilePairs = _.shuffle(tilePairs);
-    //console.log(tilePairs);
-
+    //tilePairs = _.shuffle(tilePairs);
 
     //  selects element by id
     var gameBoard = $('#game-board');
     var row = $(document.createElement('div'));
     var img;
-
 
     // sets up the game board
     _.forEach(tilePairs, function(tile, elemIndex) {
@@ -87,6 +85,10 @@ $(document).ready(function() {
     });
     gameBoard.append(row);
 
+    $('#btn2').click(function() {
+
+    });
+
 
     // registers the click function upon clicking a tile
     $('#game-board img').click(function() {
@@ -94,50 +96,61 @@ $(document).ready(function() {
         var img = $(this);
         var tile = img.data('tile');
 
-        if (selectedTile1 == 0) {
-            selectedTile1 = tile;
-            console.log("selectedTile1: " + selectedTile1.tileNum);
-        } else {
-            selectedTile2 = tile;
-            console.log("selectedTile2: " + selectedTile2.tileNum)
+        console.log("Can turn back over? " +turnBackOver);
+
+        if (numClicks == 2) {
+            numClicks = 0;
+            turnBackOver = false;
         }
 
-        if (selectedTile1.tileNum == selectedTile2.tileNum){
-            matchesMade++;
-            console.log("you have a match");
-            console.log("matchesMade: " + matchesMade);
-        } else { // fix
-            tilesMissed++;
-            matchesMissed += tilesMissed % 2;
-            console.log("matchesMissed: " + matchesMissed);
+        if (numClicks == 0 && turnBackOver == false && prev == curr && tile.hasFoundMatch == false) {
+            numClicks++;
+            prev = tile;
+            prevImg = img;
+            img.attr('src', tile.src);
         }
 
-        if (selectedTile1.tileNum > 0 && selectedTile2.tileNum > 0) {
-            selectedTile1 = 0;
-            selectedTile2 = 0;
-        }
+        if (turnBackOver == false && numClicks == 1 && tile != prev && tile.hasFoundMatch == false) {
+            numClicks++;
+            curr = tile;
+            img.attr('src', tile.src);
 
-
-        img.fadeOut(100, function() {
-            if (tile.flipped) {
-                img.attr('src', 'img/tile-back.png');
+            if (prev.tileNum === curr.tileNum) {
+                prev.hasFoundMatch = true;
+                tile.hasFoundMatch = true;
+                prev = null;
+                curr = null;
+                matchesMade++;
+                matchesLeft--;
             } else {
-                img.attr('src', tile.src);
+                matchesMissed++;
+                turnBackOver = true;
+                setTimeout(function(){
+                    img.attr('src', 'img/tile-back.png');
+                    prevImg.attr('src', 'img/tile-back.png');
+                    console.log("can i finally flip the two tiles back over? " + turnBackOver);
+                    prev = null;
+                    curr = null;
+                }, 1000);
             }
-            img.fadeIn(100);
-            tile.flipped = !tile.flipped;
-        }); //after fadeOut
-    }); //on click of gameboard images
+        }
 
+        $('#matches-made').text("Matches Made: " + matchesMade);
+        $('#matches-remaining').text("Matches Remaining: " + matchesLeft);
+        $('#matches-attempted').text("Matches Attempted: " + matchesMissed);
+    }); //on click of gameboard images
 
     // timer to show elapsed time on page
     var startTime = _.now();
     var timer = window.setInterval(function() {
-        var elapsedSeconds = Math.floor((_.now() - startTime) / 1000);
-        $('#elapsed-seconds').text(elapsedSeconds);
+        var elapsedSeconds = 0 + Math.floor((_.now() - startTime) / 1000);
+        $('#elapsed-seconds').text("Seconds Elapsed: " + elapsedSeconds);
 
-        if (elapsedSeconds >= 10) {
+        if (matchesLeft == 0) {
             window.clearInterval(timer);
+            console.log("Congratulations!");
         }
     }, 1000);
+
+
 });
