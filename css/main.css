@@ -15,10 +15,20 @@ p, h1 {
 }
 
 #stats {
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 #new-game {
     background-color: lightgreen;
+    margin-right: 20px;
 }
 
+.modal-body p {
+    padding-bottom: 10px;
+    color: black;
+}
+
+#congrats {
+    padding-bottom: 15px;
+    display: none;
+}

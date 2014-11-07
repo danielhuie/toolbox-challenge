@@ -17,7 +17,7 @@
                 How to play
             </button>
 
-            <!-- Modal -->
+            <!-- How to play -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -26,10 +26,15 @@
                             <h4 class="modal-title" id="myModalLabel">Rules of the Game!</h4>
                         </div>
                         <div class="modal-body">
-                            <b>The rules are simple. Here they are as follows:</b>
-                            <Br>
-                            <li>You can only flip over one tile at a time</li>
-                            <li>That's about it</li>
+                            <p><b>The rules are simple. Here they are as follows:</b></p>
+                            <div>
+                                <li>The game starts with a grid of 16 tiles turned face down. </li>
+                                <li>There are 8 matching pairs randomly distributed in the grid.</li>
+                                <li>You are allowed to turn two tiles at a time trying to find matching pairs.</li>
+                                <li>If two tiles match, they remain turned over.</li>
+                                <li>If two tiles don't match, both tiles are flipped back over.</li>
+                                <li>The game ends when all pairs have been matched.</li>
+                            </div>
 
                         </div>
                         <div class="modal-footer">
@@ -50,10 +55,16 @@
                     <p id="matches-remaining"></p>
                 </div>
                 <div class="col-md-3">
-                    <p id="matches-attempted">Attempted Matches: </p>
+                    <p id="matches-attempted"></p>
                 </div>
             </div>
             <Br>
+
+            <div class="row" id="congrats">
+                <div class="col-md-8">
+                    <div class="alert alert-success" role="alert">Congratulations! You have won the memory game! Now go do your homework...</div>
+                </div>
+            </div>
 
             <div id="game-board"></div>
 
