@@ -6,7 +6,8 @@
 }
 
 body {
-    background: black;
+    background-image: url(../img/bg1.jpg);
+    background-size: cover;
 }
 
 p, h1 {

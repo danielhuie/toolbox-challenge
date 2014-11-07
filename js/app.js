@@ -74,7 +74,7 @@ $(document).ready(function() {
 
             clickAction(img, tile);
             displayUpdatedStats();
-        }); //on click of gameboard images
+        }); //on click of gameBoard images
     }
 
     // registers the click function upon clicking a tile
